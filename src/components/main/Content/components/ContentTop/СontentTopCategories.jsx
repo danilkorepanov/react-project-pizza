@@ -17,6 +17,7 @@ const ContentTopCategories = () => {
       <ul>
         {dataCategories.map((categories, index) => (
           <li
+            key={index}
             onClick={() => setActiveCategories(index)}
             className={activeCategories === index ? "active" : ""}
           >

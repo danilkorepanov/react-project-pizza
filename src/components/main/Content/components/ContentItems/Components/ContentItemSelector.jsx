@@ -10,10 +10,11 @@ function ContentItemSelector({ sizes, types }) {
   return (
     <div className="pizza-block__selector">
       <ul>
-        {types.map((t, i) => (
+        {types.map((t, index) => (
           <li
-            onClick={() => setActiveDough(i)}
-            className={activeDough === i ? "active" : ""}
+            key={index}
+            onClick={() => setActiveDough(index)}
+            className={activeDough === index ? "active" : ""}
           >
             {doughPizza[t]}
           </li>
@@ -22,6 +23,7 @@ function ContentItemSelector({ sizes, types }) {
       <ul>
         {sizes.map((s, index) => (
           <li
+            key={index}
             onClick={() => setActiveSize(index)}
             className={activeSize === index ? "active" : ""}
           >

@@ -5,7 +5,7 @@ const ContentItems = () => {
   return (
     <div className="content__items">
       {dataPizzas.map((pizza) => (
-        <ContentItem dataPizza={pizza} />
+        <ContentItem dataPizza={pizza} key={pizza.id} />
       ))}
     </div>
   );

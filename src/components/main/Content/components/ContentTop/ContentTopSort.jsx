@@ -1,4 +1,12 @@
+import React from "react";
+
+const ListPopup = ["популярности", "цене", "алфавиту"];
+
 const ContentTopSort = () => {
+  const [Visible, setVisible] = React.useState(false);
+
+  const [popup, setPopup] = React.useState(0);
+
   return (
     <div className="sort">
       <div className="sort__label">
@@ -15,15 +23,26 @@ const ContentTopSort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        <span onClick={() => setVisible(!Visible)}>{ListPopup[popup]}</span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          <li className="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+      {Visible && (
+        <div className="sort__popup">
+          <ul>
+            {ListPopup.map((popups, i) => (
+              <li
+                key={i}
+                className={popup === i && "active"}
+                onClick={() => {
+                  setPopup(i);
+                  setVisible(!Visible);
+                }}
+              >
+                {popups}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
