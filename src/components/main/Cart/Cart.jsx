@@ -1,8 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   return (
-    <div class="content">
       <div class="container container--cart">
         <div class="cart">
           <div class="cart__top">
@@ -79,7 +79,7 @@ const Cart = () => {
               <span>Очистить корзину</span>
             </div>
           </div>
-          <div class="content__items">
+          <div class="content__items-cart">
             <div class="cart__item">
               <div class="cart__item-img">
                 <img
@@ -393,8 +393,8 @@ const Cart = () => {
               </span>
             </div>
             <div class="cart__bottom-buttons">
-              <a
-                href="/"
+              <Link
+                to="/"
                 class="button button--outline button--add go-back-btn"
               >
                 <svg
@@ -414,7 +414,7 @@ const Cart = () => {
                 </svg>
 
                 <span>Вернуться назад</span>
-              </a>
+              </Link>
               <div class="button pay-btn">
                 <span>Оплатить сейчас</span>
               </div>
@@ -422,7 +422,6 @@ const Cart = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
