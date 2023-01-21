@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 
 const dataCategories = [
   "Все",
@@ -9,8 +8,7 @@ const dataCategories = [
   "Закрытые",
 ];
 
-const ContentTopCategories = () => {
-  const [activeCategories, setActiveCategories] = useState(0);
+const ContentTopCategories = ({activeCategories, setActiveCategories }) => {
 
   return (
     <div className="categories">

@@ -1,5 +1,5 @@
 import CartEmpty from "./components/main/CartEmpty/CartEmpty";
-import Content from "./components/main/Content/Content";
+import Content from "./components/main/Home/Content/Content";
 import Header from "./components/main/Header/Header";
 import { Routes, Route } from "react-router-dom";
 import "./scss/app.scss";
