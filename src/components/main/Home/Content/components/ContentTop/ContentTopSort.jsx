@@ -44,7 +44,7 @@ const ContentTopSort = ({popup, setPopup}) => {
             {ListSort.map((obj) => (
               <li
                 key={obj.name}
-                className={popup === obj.name && "active"}
+                className={popup.name === obj.name && "active"}
                 onClick={() => {
                   setPopup(obj);
                   setVisible(!Visible);

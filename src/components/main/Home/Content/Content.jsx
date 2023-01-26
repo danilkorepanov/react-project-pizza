@@ -1,11 +1,15 @@
 import ContentItems from "./components/ContentItems/ContentItems";
 import ContetnTop from "./components/ContentTop/ContentTop";
+import Paginations from "./components/Paginations"
 import React from "react";
 
 
 
 
-const Content = () => {
+const Content = ({searchValue}) => {
+
+  // page
+  const [page,setPage] = React.useState(1)
 
   
   
@@ -27,16 +31,18 @@ const Content = () => {
 
    {
     setIsLoading(true)
-      fetch(`https://63c7634c5c0760f69ab6be90.mockapi.io/items?${
+      fetch(`https://63c7634c5c0760f69ab6be90.mockapi.io/items?page=${page}&limit=4&${
         activeCategories > 0 ? `category=${activeCategories}` : ''
-      }&sortBy=${popup.name}&order=desc`)
+      }&sortBy=${popup.name}&order=desc&${
+        searchValue && `filter=${searchValue}`
+      }`)
       .then ( res => {return res.json()})
       .then(arr => {
       setItems(arr)
       setIsLoading(false)
     })
   
-   }, [activeCategories, popup])
+   }, [activeCategories, popup, searchValue, page])
 
 
   return (
@@ -45,6 +51,7 @@ const Content = () => {
         <ContetnTop activeCategories = {activeCategories} setActiveCategories = { setActiveCategories} popup={popup} setPopup = {setPopup} />
         <h2 className="content__title">Все пиццы</h2>
         <ContentItems items = {items} isLoading = {isLoading} />
+        <Paginations setPage= {setPage} />
       </div>
     </div>
   );
