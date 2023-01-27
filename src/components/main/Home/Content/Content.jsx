@@ -2,11 +2,15 @@ import ContentItems from "./components/ContentItems/ContentItems";
 import ContetnTop from "./components/ContentTop/ContentTop";
 import Paginations from "./components/Paginations"
 import React from "react";
+import { SearchContext } from "../../../../App";
 
 
 
 
-const Content = ({searchValue}) => {
+
+const Content = () => {
+
+  const {searchValue} = React.useContext(SearchContext)
 
   // page
   const [page,setPage] = React.useState(1)

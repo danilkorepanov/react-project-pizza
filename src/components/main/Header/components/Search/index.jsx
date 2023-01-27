@@ -1,8 +1,10 @@
 import React from 'react'
 import { IoCloseOutline } from "react-icons/io5";
 import style from './Search.module.scss'
+import { SearchContext } from '../../../../../App'
 
-const Search = ( {searchValue, setSearchValue}) => {
+const Search = () => {
+  const {searchValue, setSearchValue} = React.useContext(SearchContext)
   return (
     <div className={style.search_cont}>
         <input value={searchValue} onChange = {e =>{
