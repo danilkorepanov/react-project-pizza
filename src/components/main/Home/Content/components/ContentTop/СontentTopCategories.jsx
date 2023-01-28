@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { setActiveCategories } from "../../../../../../redux/slices/CategorySlice";
+import { setActiveCategories } from "../../../../../../redux/slices/FilterSlice";
 
 const dataCategories = [
   "Все",
@@ -11,7 +11,9 @@ const dataCategories = [
 ];
 
 const ContentTopCategories = () => {
-  const activeCategories = useSelector((state) => state.category.index);
+  const activeCategories = useSelector(
+    (state) => state.filter.activeCategories
+  );
   const dispatch = useDispatch();
   return (
     <div className="categories">

@@ -1,24 +1,25 @@
 import React from "react";
-
+import { useSelector, useDispatch } from "react-redux";
+import { setTypeSort } from "../../../../../../redux/slices/FilterSlice";
 const ListSort = [
-{
-  title:"популярности", 
-  name:"rating"
-},
-{
-  title:"цене", 
-  name:"price"
-},
-{
-  title:"алфавиту", 
-  name:"title"
-}
+  {
+    title: "популярности",
+    name: "rating",
+  },
+  {
+    title: "цене",
+    name: "price",
+  },
+  {
+    title: "алфавиту",
+    name: "title",
+  },
 ];
 
-const ContentTopSort = ({popup, setPopup}) => {
+const ContentTopSort = () => {
   const [Visible, setVisible] = React.useState(false);
-
- 
+  const typeSort = useSelector((state) => state.filter.typeSort);
+  const dispatch = useDispatch();
 
   return (
     <div className="sort">
@@ -36,7 +37,7 @@ const ContentTopSort = ({popup, setPopup}) => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setVisible(!Visible)}>{popup.title}</span>
+        <span onClick={() => setVisible(!Visible)}>{typeSort.title}</span>
       </div>
       {Visible && (
         <div className="sort__popup">
@@ -44,10 +45,10 @@ const ContentTopSort = ({popup, setPopup}) => {
             {ListSort.map((obj) => (
               <li
                 key={obj.name}
-                className={popup.name === obj.name && "active"}
+                className={typeSort.name === obj.name && "active"}
                 onClick={() => {
-                  setPopup(obj);
                   setVisible(!Visible);
+                  dispatch(setTypeSort(obj));
                 }}
               >
                 {obj.title}

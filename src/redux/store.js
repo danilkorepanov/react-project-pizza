@@ -1,9 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import CategorySlice from "./slices/CategorySlice";
+import PageSlice from "./slices/PageSlice";
+import SearchSLice from "./slices/SearchSLice";
+import FilterSlice from "./slices/FilterSlice";
 
 export const store = configureStore({
   reducer: {
-    category: CategorySlice,
+    filter: FilterSlice,
+    page: PageSlice,
+    search: SearchSLice,
   },
 });
-console.log(CategorySlice);

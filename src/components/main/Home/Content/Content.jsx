@@ -2,34 +2,27 @@ import ContentItems from "./components/ContentItems/ContentItems";
 import ContetnTop from "./components/ContentTop/ContentTop";
 import Paginations from "./components/Paginations";
 import React from "react";
-import { SearchContext } from "../../../../App";
 import { useSelector } from "react-redux";
 const Content = () => {
-  const { searchValue } = React.useContext(SearchContext);
+  //search
+  const searchValue = useSelector((state) => state.search.value);
 
   // page
-  const [page, setPage] = React.useState(1);
-
-  // usestate sort
-
-  const [popup, setPopup] = React.useState({
-    title: "популярности",
-    name: "rating",
-  });
-  // categories
-  const activeCategories = useSelector((state) => state.category.index);
+  const page = useSelector((state) => state.page.value);
+  //filter (sort and category)
+  const { typeSort, activeCategories } = useSelector((state) => state.filter);
 
   //usestate contentItems
 
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(false);
   const [items, setItems] = React.useState([]);
 
   React.useEffect(() => {
-    setIsLoading(true);
+    setIsLoading(false);
     fetch(
       `https://63c7634c5c0760f69ab6be90.mockapi.io/items?page=${page}&limit=4&${
         activeCategories > 0 ? `category=${activeCategories}` : ""
-      }&sortBy=${popup.name}&order=desc&${
+      }&sortBy=${typeSort.name}&order=desc&${
         searchValue && `filter=${searchValue}`
       }`
     )
@@ -38,17 +31,17 @@ const Content = () => {
       })
       .then((arr) => {
         setItems(arr);
-        setIsLoading(false);
+        setIsLoading(true);
       });
-  }, [activeCategories, popup, searchValue, page]);
+  }, [typeSort, activeCategories, searchValue, page]);
 
   return (
     <div className="content">
       <div className="container">
-        <ContetnTop popup={popup} setPopup={setPopup} />
+        <ContetnTop />
         <h2 className="content__title">Все пиццы</h2>
         <ContentItems items={items} isLoading={isLoading} />
-        <Paginations setPage={setPage} />
+        <Paginations />
       </div>
     </div>
   );
