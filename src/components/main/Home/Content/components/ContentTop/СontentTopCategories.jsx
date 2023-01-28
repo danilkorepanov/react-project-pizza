@@ -1,3 +1,5 @@
+import { useSelector, useDispatch } from "react-redux";
+import { setActiveCategories } from "../../../../../../redux/slices/CategorySlice";
 
 const dataCategories = [
   "Все",
@@ -8,15 +10,18 @@ const dataCategories = [
   "Закрытые",
 ];
 
-const ContentTopCategories = ({activeCategories, setActiveCategories }) => {
-
+const ContentTopCategories = () => {
+  const activeCategories = useSelector((state) => state.category.index);
+  const dispatch = useDispatch();
   return (
     <div className="categories">
       <ul>
         {dataCategories.map((categories, index) => (
           <li
             key={index}
-            onClick={() => setActiveCategories(index)}
+            onClick={() => {
+              dispatch(setActiveCategories(index));
+            }}
             className={activeCategories === index ? "active" : ""}
           >
             {categories}

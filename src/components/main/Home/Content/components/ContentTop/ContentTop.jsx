@@ -1,14 +1,10 @@
 import ContentTopSort from "./ContentTopSort";
 import ContentTopCategories from "./СontentTopCategories";
 
-
-const ContetnTop = ({activeCategories, setActiveCategories, popup, setPopup }) => {
-
-  
-
+const ContetnTop = ({ popup, setPopup }) => {
   return (
     <div className="content__top">
-      <ContentTopCategories activeCategories = {activeCategories} setActiveCategories = {setActiveCategories}  />
+      <ContentTopCategories />
       <ContentTopSort popup={popup} setPopup={setPopup} />
     </div>
   );
