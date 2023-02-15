@@ -1,27 +1,46 @@
 import React from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import style from "./Search.module.scss";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setSearchValue } from "../../../../../redux/slices/SearchSLice";
+import debounce from "lodash.debounce";
 
 const Search = () => {
-  const searchValue = useSelector((state) => state.search.value);
+  const [value, setValue] = React.useState("");
+
   const dispatch = useDispatch();
+
+  const inputSeacrh = React.useRef("");
+
+  const updateSearchValue = React.useCallback(
+    debounce((str) => {
+      console.log(str);
+      dispatch(setSearchValue(str));
+    }, 350),
+    []
+  );
+
   return (
     <div className={style.search_cont}>
       <input
-        value={searchValue}
+        ref={inputSeacrh}
+        value={value}
         onChange={(e) => {
-          dispatch(setSearchValue(e.target.value));
+          setValue(e.target.value);
+          updateSearchValue(e.target.value);
         }}
         className={style.input}
         placeholder="Поиск пиццы ..."
       />
 
-      {searchValue && (
+      {value && (
         <IoCloseOutline
           className={style.close}
-          onClick={(e) => dispatch(setSearchValue(""))}
+          onClick={() => {
+            setValue("");
+            updateSearchValue("");
+            inputSeacrh.current.focus();
+          }}
         />
       )}
     </div>

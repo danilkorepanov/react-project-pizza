@@ -3,6 +3,7 @@ import ContetnTop from "./components/ContentTop/ContentTop";
 import Paginations from "./components/Paginations";
 import React from "react";
 import { useSelector } from "react-redux";
+import axios from "axios";
 const Content = () => {
   //search
   const searchValue = useSelector((state) => state.search.value);
@@ -19,18 +20,16 @@ const Content = () => {
 
   React.useEffect(() => {
     setIsLoading(false);
-    fetch(
-      `https://63c7634c5c0760f69ab6be90.mockapi.io/items?page=${page}&limit=4&${
-        activeCategories > 0 ? `category=${activeCategories}` : ""
-      }&sortBy=${typeSort.name}&order=desc&${
-        searchValue && `filter=${searchValue}`
-      }`
-    )
+    axios
+      .get(
+        `https://63c7634c5c0760f69ab6be90.mockapi.io/items?page=${page}&limit=4&${
+          activeCategories > 0 ? `category=${activeCategories}` : ""
+        }&sortBy=${typeSort.name}&order=desc&${
+          searchValue && `filter=${searchValue}`
+        }`
+      )
       .then((res) => {
-        return res.json();
-      })
-      .then((arr) => {
-        setItems(arr);
+        setItems(res.data);
         setIsLoading(true);
       });
   }, [typeSort, activeCategories, searchValue, page]);
