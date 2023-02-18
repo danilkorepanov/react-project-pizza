@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setTypeSort } from "../../../../../../redux/slices/FilterSlice";
-const ListSort = [
+export const ListSort = [
   {
     title: "популярности",
     name: "rating",
@@ -45,7 +45,7 @@ const ContentTopSort = () => {
             {ListSort.map((obj) => (
               <li
                 key={obj.name}
-                className={typeSort.name === obj.name && "active"}
+                className={`${typeSort.name === obj.name && "active"}`}
                 onClick={() => {
                   setVisible(!Visible);
                   dispatch(setTypeSort(obj));

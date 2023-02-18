@@ -2,22 +2,42 @@ import ContentItems from "./components/ContentItems/ContentItems";
 import ContetnTop from "./components/ContentTop/ContentTop";
 import Paginations from "./components/Paginations";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import qs from "qs";
+import { useNavigate } from "react-router-dom";
+import { ListSort } from "./components/ContentTop/ContentTopSort";
+import { setFilters } from "../../../../redux/slices/FilterSlice";
 const Content = () => {
+  const dispatch = useDispatch();
   //search
   const searchValue = useSelector((state) => state.search.value);
 
-  // page
-  const page = useSelector((state) => state.page.value);
-  //filter (sort and category)
-  const { typeSort, activeCategories } = useSelector((state) => state.filter);
+  //filter (sort,  category, page)
+  const { typeSort, activeCategories, page } = useSelector(
+    (state) => state.filter
+  );
 
   //usestate contentItems
 
   const [isLoading, setIsLoading] = React.useState(false);
   const [items, setItems] = React.useState([]);
-
+  // проверка на наличие параметров в URL
+  React.useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+      const sortList = ListSort.find(
+        (obj) => obj.name === params.typeSort.name
+      );
+      dispatch(
+        setFilters({
+          ...params,
+          sortList,
+        })
+      );
+    }
+  }, []);
+  // загрузка пицц с бэка
   React.useEffect(() => {
     setIsLoading(false);
     axios
@@ -33,6 +53,19 @@ const Content = () => {
         setIsLoading(true);
       });
   }, [typeSort, activeCategories, searchValue, page]);
+
+  // параметры в фильтрацию
+
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    const queryString = qs.stringify({
+      typeSort: typeSort,
+      activeCategories,
+      page,
+    });
+    navigate(`/?${queryString}`);
+  }, [typeSort.name, activeCategories, page]);
 
   return (
     <div className="content">

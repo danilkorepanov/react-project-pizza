@@ -10841,7 +10841,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:6.11.0":
+"qs@npm:6.11.0, qs@npm:^6.11.0":
   version: 6.11.0
   resolution: "qs@npm:6.11.0"
   dependencies:
@@ -11041,6 +11041,7 @@ __metadata:
     axios: ^1.3.3
     lodash.debounce: ^4.0.8
     node-sass: ^8.0.0
+    qs: ^6.11.0
     react: ^18.2.0
     react-content-loader: ^6.2.0
     react-dom: ^18.2.0
